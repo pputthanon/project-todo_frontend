@@ -18,7 +18,10 @@ export default function RegisterForm() {
               </div>
               <div className="m-1">Email</div>
               <div className="m-1">
-                <Input placeholder="Enter your email address..." />
+                <Input
+                  placeholder="Enter your email address..."
+                  type={"email"}
+                />
               </div>
               <div className="m-1">Password</div>
               <div className="m-1">
@@ -33,7 +36,7 @@ export default function RegisterForm() {
                   <Button type={"submit"} text={"Register"} />
                 </div>
               </div>
-              <hr className="border border-slate-600" />
+              <hr className="border border-neutral-400" />
               <Link to={`/login`}>
                 <div className="flex justify-center my-5">
                   <div className="flex justify-center w-full font-semibold">

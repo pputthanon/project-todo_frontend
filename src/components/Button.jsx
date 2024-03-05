@@ -12,7 +12,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       name={name}
-      className={`flex-1 text-md rounded-2xl border-1 px-5 py-2 ${className}`}
+      className={`flex text-md rounded-2xl border-1 px-5 py-2 ${className}`}
     >
       {text}
     </button>
