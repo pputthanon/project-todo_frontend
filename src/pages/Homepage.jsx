@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { MdDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
 import { useAuth } from "../hooks/use-auth";
 import Header from "../layout/Header";
 import Modal from "../components/Modal";
 import CreateForm from "../forms/CreateForm";
 import axios from "../config/axios";
+import TaskList from "../components/TaskList";
 
 export default function Homepage() {
   const { authUser } = useAuth();
@@ -21,17 +20,19 @@ export default function Homepage() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(allTask);
-
   return (
     <div className="h-screen">
       <Header />
+
       <div className="flex justify-center h-screen">
         <div className="flex w-1/2 mt-10 flex-col">
-          <div className="flex justify-between bg-[#CCD5AE] w-full h-16 items-center rounded-lg font-semibold">
+          <div className="flex justify-between bg-[#CCD5AE] w-full h-16 items-center rounded-lg px-3 text-title">
             <div className="ml-2">LOGO</div>
             <div className="flex justify-center items-center cursor-pointer">
-              <div onClick={() => setIsOpen(true)} className="mx-2">
+              <div
+                onClick={() => setIsOpen(true)}
+                className="mx-2 font-semibold"
+              >
                 Add
               </div>
               <Modal
@@ -46,24 +47,7 @@ export default function Homepage() {
           </div>
           <div className="">
             {allTask?.map((el) => (
-              <div className="bg-[#FEFAE0] my-4 p-5 rounded-xl flex items-center justify-between">
-                <div className="">{el.task}</div>
-                <div className="flex text-xl text-title gap-2 cursor-pointer">
-                  <div onClick={() => setIsOpen(true)}>
-                    <FaEdit />
-                  </div>
-                  <Modal
-                    title={"Add Task"}
-                    open={isOpen}
-                    onClose={() => setIsOpen(false)}
-                  >
-                    <CreateForm onClose={() => setIsOpen(false)} />
-                  </Modal>
-                  <div>
-                    <MdDelete />
-                  </div>
-                </div>
-              </div>
+              <TaskList key={el.id} taskObj={el} allTask={allTask} />
             ))}
           </div>
         </div>
