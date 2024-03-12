@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/use-auth";
 function RedirectIfAuthenticated({ children }) {
   const { authUser } = useAuth();
   if (authUser) {
-    return <Navigate to="/homepage" />;
+    return <Navigate to={`/homepage/${authUser.id}`} />;
   }
 
   return children;

@@ -15,7 +15,7 @@ const router = createBrowserRouter([
         <Layout />
       </Authenticated>
     ),
-    children: [{ path: "homepage", element: <Homepage /> }],
+    children: [{ path: "homepage/:userId", element: <Homepage /> }],
   },
   {
     path: "/",

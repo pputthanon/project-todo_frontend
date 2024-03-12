@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useAuth } from "../hooks/use-auth";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { useAuth } from "../hooks/use-auth";
 
 export default function LoginForm() {
   const { login } = useAuth();
