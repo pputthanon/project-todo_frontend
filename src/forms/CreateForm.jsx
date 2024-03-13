@@ -1,16 +1,21 @@
 import { DatePicker } from "antd";
 import { useState } from "react";
 import dayjs from "dayjs";
+import { format } from "dayjs";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { useParams } from "react-router-dom";
 import axios from "../config/axios";
 
-export default function CreateForm({ onClose, taskObj }) {
+export default function CreateForm({ onClose, taskObj, update, setUpdate }) {
   const dateFormat = "DD/MM/YYYY";
   const disabledDate = (current) => {
     return current < dayjs().endOf("day");
   };
+
+  const taskDateTime = dayjs(taskObj?.createdAt).format("DD/MM/YYYY HH:mm");
+  const taskDateTimeEdited = dayjs(taskObj?.editedAt).format(
+    "DD/MM/YYYY HH:mm"
+  );
 
   const [input, setInput] = useState({
     task: "",
@@ -34,6 +39,8 @@ export default function CreateForm({ onClose, taskObj }) {
     e.preventDefault();
     try {
       await axios.post("/user/create", input);
+      onClose();
+      setUpdate(!update);
     } catch (error) {
       console.log(error);
     }
@@ -78,8 +85,14 @@ export default function CreateForm({ onClose, taskObj }) {
             />
           </div>
         </div>
+        {taskObj?.id ? (
+          <div className="mt-2 flex justify-between">
+            <div>Create At: {taskDateTime}</div>
+            <div>Edited At: {taskDateTimeEdited}</div>
+          </div>
+        ) : null}
         <div className="flex mt-5">
-          {taskObj ? (
+          {taskObj?.id ? (
             <div className="w-full flex justify-center ">
               <Button
                 type={"submit"}

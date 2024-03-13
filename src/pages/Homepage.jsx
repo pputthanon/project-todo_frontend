@@ -10,6 +10,7 @@ export default function Homepage() {
   const { authUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [allTask, setAllTask] = useState([]);
+  const [update, setUpdate] = useState(false);
 
   useEffect(() => {
     axios
@@ -18,7 +19,7 @@ export default function Homepage() {
         setAllTask(res.data.tasks);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [update]);
 
   return (
     <div className="h-screen">
@@ -39,15 +40,27 @@ export default function Homepage() {
                 title={"Add Task"}
                 open={isOpen}
                 onClose={() => setIsOpen(false)}
+                update={update}
+                setUpdate={setUpdate}
               >
-                <CreateForm onClose={() => setIsOpen(false)} />
+                <CreateForm
+                  onClose={() => setIsOpen(false)}
+                  update={update}
+                  setUpdate={setUpdate}
+                />
               </Modal>
               <div className="mx-2 ">filter</div>
             </div>
           </div>
           <div className="">
             {allTask?.map((el) => (
-              <TaskList key={el.id} taskObj={el} allTask={allTask} />
+              <TaskList
+                key={el.id}
+                taskObj={el}
+                allTask={allTask}
+                update={update}
+                setUpdate={setUpdate}
+              />
             ))}
           </div>
         </div>

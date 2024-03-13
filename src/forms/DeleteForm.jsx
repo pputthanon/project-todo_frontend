@@ -1,9 +1,11 @@
 import Button from "../components/Button";
 import axios from "../config/axios";
 
-export default function DeleteForm({ onClose, taskObj }) {
+export default function DeleteForm({ onClose, taskObj, update, setUpdate }) {
   const deleteTask = async () => {
-    axios.delete(`/user/delete/${taskObj.id}`);
+    await axios.delete(`/user/delete/${taskObj.id}`);
+    onClose();
+    setUpdate(!update);
   };
 
   return (
@@ -17,7 +19,9 @@ export default function DeleteForm({ onClose, taskObj }) {
             type={"submit"}
             text={"Delete"}
             className="bg-[#e9edc9] hover:bg-[#ffdc83] w-36 flex justify-center"
-            onClick={() => deleteTask(taskObj.id)}
+            onClick={() => {
+              deleteTask(taskObj.id);
+            }}
           ></Button>
         </div>
 
