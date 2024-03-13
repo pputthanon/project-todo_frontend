@@ -18,11 +18,10 @@ export default function CreateForm({ onClose, taskObj, update, setUpdate }) {
   );
 
   const [input, setInput] = useState({
-    task: "",
-    dueDate: dayjs(new Date()),
-    status: "in_progress",
+    task: taskObj ? taskObj.task : "",
+    dueDate: taskObj ? dayjs(taskObj.dueDate) : dayjs(new Date()),
+    status: taskObj ? taskObj.status : "in_progress",
   });
-
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -38,7 +37,11 @@ export default function CreateForm({ onClose, taskObj, update, setUpdate }) {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/user/create", input);
+      if (taskObj.id) {
+        await axios.patch(`/user/update/${taskObj.id}`, input);
+      } else {
+        await axios.post("/user/create", input);
+      }
       onClose();
       setUpdate(!update);
     } catch (error) {

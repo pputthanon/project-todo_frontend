@@ -32,7 +32,7 @@ export default function Homepage() {
             <div className="flex justify-center items-center cursor-pointer">
               <div
                 onClick={() => setIsOpen(true)}
-                className="mx-2 font-semibold"
+                className="mx-2 font-semibold flex"
               >
                 Add
               </div>
@@ -49,7 +49,7 @@ export default function Homepage() {
                   setUpdate={setUpdate}
                 />
               </Modal>
-              <div className="mx-2 ">filter</div>
+              {/* <div className="mx-2 ">filter</div> */}
             </div>
           </div>
           <div className="">
