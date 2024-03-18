@@ -1,7 +1,6 @@
 import { DatePicker } from "antd";
 import { useState } from "react";
 import dayjs from "dayjs";
-import { format } from "dayjs";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import axios from "../config/axios";
@@ -37,7 +36,7 @@ export default function CreateForm({ onClose, taskObj, update, setUpdate }) {
   const handleSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      if (taskObj.id) {
+      if (taskObj?.id) {
         await axios.patch(`/user/update/${taskObj.id}`, input);
       } else {
         await axios.post("/user/create", input);
